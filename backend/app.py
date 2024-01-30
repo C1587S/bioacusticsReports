@@ -1,10 +1,11 @@
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 import db
 import utils
 
-import AUDIO_FILES_DIR from environment_vars
+load_dotenv('environment_vars')
 
 # Create the Flask app
 app = Flask(__name__)
