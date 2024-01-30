@@ -9,3 +9,4 @@ services:
       - "5001:5001"
     volumes:
       - ./backend:/app 
+      - ./audio_files:/audio_files 
