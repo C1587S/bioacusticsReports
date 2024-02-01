@@ -8,5 +8,28 @@ services:
     ports:
       - "5001:5001"
     volumes:
-      - ./backend:/app 
+      - ./backend:/app/backend
       - ./audio_files:/audio_files 
+      - ./results:/results 
+      - ./shared_volume_s3fs:/shared_volume_s3fs
+    working_dir: /app/backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - FLASK_DEBUG=1
+      
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    volumes:
+      - ./frontend:/app/frontend 
+      - /app/frontend/node_modules 
+      - ./audio_files:/audio_files 
+      - ./shared_volume_s3fs:/shared_volume_s3fs
+    ports:
+      - "3001:3001"
+    command: npm start
+    working_dir: /app/frontend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=3001 
